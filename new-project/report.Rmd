@@ -1,0 +1,111 @@
+---
+title: 'CSC8631 : Data Management and Explore Data Analysis------Online Learning'
+author: "Minye Shao"
+date: "2019/11/22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+* This analysis project based on the CRISP-DM model method,So the specific analysis process will be:
+![Caption for the picture.](/CSC8631_CW\Data-Management-CSC8631\new-project\data/UN1.png){ width=60% height=60%}
+<br>
+<br>
+
+## Project objectives
+<hr> <br>
+
+The purpose of this project is to explore and manage data by using R language to sort out and filter the previously disordered raw data, and finally present the data of an online courses "cyber security" from Newcastle university  to normal people and course organizers in a visual way, this will make it easier for them to effectively understand the concepts behind the original data.
+<br>
+<br>
+<br>
+
+## Let's start with business understanding
+<hr> <br>
+
+* With the development of society and science, data analysis and processing are more and more widely used.The focus of this project is to use the data from the online course of Newcastle university in the UK as the prototype, and to draw some effective conclusions by using the CRISP-DM model and EDA (exploratory data analysis).Through these conclusions, we hope we can improve the course arrangement in the future and effectively improve the quality of this course.<br>
+
+* We hope that the course of cyber security will be well known and everyone can effectively acquire the knowledge they want after finishing this course.<br>
+
+* In addition, the study of online courses is more free, with the development of the education industry, more and more people will choose online courses to study, which is a flexible time choice and high-quality education.Therefore, universities can take advantage of this opportunity to increase their income.<br>
+
+<br>
+<br>
+
+## Data Understanding
+<hr>
+<br>
+
+### A basic overview of the data
+<hr>
+
+* Our data comes from Newcastle university's online course: cyber security.<br>
+* There are two types of data: static data and fluid data.<br>
+* "Static data" is data that has traditionally been collected by certain institutions, which can be records in universities.<br>
+* "Fluid data" is collected from everyday activities, such as swiping student card and logging into virtual online learning classrooms.
+* We have seven terms for the course data, and are ranked from cyber_security 1 to cyber_security 7, each of which means a new cycle for the course. These raw data recorded a lot of necessary and meaningful information but it needs to be filtered and processed before it can be used.<br>
+
+### Defects in the original data
+<hr>
+* There are many null values and Unknown values in the original data. I think null values can be properly processed, such as elimination or screening, but I will keep Unknown values, because removing Unknown values is equivalent to reducing the sample size and affecting the authenticity of samples
+
+* Some of the CSV files in the original data don't give me enough information to process efficiently
+
+* The raw data itself cannot be directly used as the input values presented in the visual diagram. We need to process the data into the way we want it to be before screening it to get the diagram we want
+
+### Data preprocessing
+<hr>
+* When I look at the given set of raw data, I finally chose 3 of them as the main object of processing the data, they are: "enrolments", "question response", and "step activity".
+<br>
+* In this project, what needs to be analyzed and reflected is the learning situation of students in this online course.In my opinion, the quality of students' listening in this course can be judged by calculating the accuracy rate of each student in answering the questions.
+<br>
+*Therefore, when preprocessing the data of "question response" and "step activity", I used "hash key" to bind the title number and the student number together, so as to generate all the answer data under the student information. In addition, I calculated several new variable values with the original data, such as:"Average time interval for each submission","Total number of attempts","The correct number","The total number of questions completed".
+
+
+* Here are some data preprocessing example: <br>
+<hr>
+<br>
+
+learner_id          quiz_question  Average time interval  week_number  first attempt      last attempt       Total attempts correct      wrong     correct rate 
+-------             ------         ----------             -------      -------            ---------------    -------        -------      ----      -------
+000a49d0-39c8-4cef	1.7.1	          0	                    1	           2016/9/14 15:08	  2016/9/14 15:08	   1	            1	           0	       1
+000a49d0-39c8-4cef	1.7.2	          0	                    1	           2016/9/14 15:09	  2016/9/14 15:09	   1	            1	           0	       1
+000a49d0-39c8-4cef	1.7.3	          0	                    1	           2016/9/14 15:10	  2016/9/14 15:10	   1	            1	           0	       1
+000a49d0-39c8-4cef	1.7.4	          0	                    1	           2016/9/14 15:11	  2016/9/14 15:11	   1	            1	           0	       1
+000a49d0-39c8-4cef	1.7.5	          0	                    1	           2016/9/14 15:11	  2016/9/14 15:11	   1	            1	           0	       1
+000a49d0-39c8-4cef	1.7.6	          14	                  1	           2016/9/14 15:12	  2016/9/14 15:12	   3	            1	           2	       0.33
+
+
+
+
+* Taking "question_response.csv" as an example, through integration, we can collect all the answer data under a student id into one piece, which will greatly enhance the usability of the original data
+
+## Data visualization
+<hr>
+
+* With data we have processed previously, we can make the following chart with shiny.
+
+* By filtering the data, we can obtain the histograms we want. Through these histograms, we can see the correct rate of students with different characteristics in different semesters.
+
+
+
+### Data Summary
+<hr>
+
+* With the help of "shiny", we can draw the following conclusions from the interactive visualized data: <br>
+<hr>
+1.The accuracy rate of female students was basically the same as that of male students.
+<br>
+2.The average correct answer rate is related to highest education level.
+<br>
+3.Accuracy is related to age distribution.
+<br>
+4.Correct rate was related to employment status, with those who had full-time and part-time jobs and those who had retired having higher accuracy
+<br>
+5.The average correct answer rate has no relationship with which semester cycle of the course.
+<br>
+6.The average correct answer rate is related to the working area of the occupation.
+
+
+
