@@ -8,7 +8,7 @@ munging: FALSE
 logging: FALSE
 logging_level: INFO
 load_libraries: TRUE
-libraries: reshape2, plyr, stringr, dplyr
+libraries: reshape2, plyr, tidyverse, stringr, lubridate, dplyr
 as_factors: TRUE
 tables_type: tibble
 attach_internal_libraries: FALSE

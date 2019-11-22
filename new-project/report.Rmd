@@ -2,13 +2,25 @@
 title: 'CSC8631 : Data Management and Explore Data Analysis------Online Learning'
 author: "Minye Shao"
 date: "2019/11/22"
-output: html_document
+output:  html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-* This analysis project based on the CRISP-DM model method,So the specific analysis process will be:
+```{r results='hide', message=FALSE, warning=FALSE, include=FALSE}
+library(ProjectTemplate)
+library(ggplot2)
+load.project()
+source("./munge/reportf.R")
+question.response = list(Q2.1,Q2.2,Q2.3,Q2.4,Q2.5,
+                         Q2.6,Q2.7)
+qids = as.vector(unique(Q2.1$qid))
+```
+<br>
+
+####  This analysis project based on the CRISP-DM model method,So the specific analysis process will be:
+<br>
 ![Caption for the picture.](/CSC8631_CW\Data-Management-CSC8631\new-project\data/UN1.png){ width=60% height=60%}
 <br>
 <br>
@@ -16,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Project objectives
 <hr> <br>
 
-The purpose of this project is to explore and manage data by using R language to sort out and filter the previously disordered raw data, and finally present the data of an online courses "cyber security" from Newcastle university  to normal people and course organizers in a visual way, this will make it easier for them to effectively understand the concepts behind the original data.
+The purpose of this project is to explore and manage data by using R language to sort out and filter the previously disordered raw data, and finally present the data of an online courses "cyber security" from Newcastle university  to normal people and course organizers in a visual way, this will make it easier for them to effectively understand the concepts behind the original data.In this project, my focus is to reflect some useful information through the correct rate of answer
 <br>
 <br>
 <br>
@@ -56,14 +68,15 @@ The purpose of this project is to explore and manage data by using R language to
 
 ### Data preprocessing
 <hr>
-* When I look at the given set of raw data, I finally chose 3 of them as the main object of processing the data, they are: "enrolments", "question response", and "step activity".
+* When I look at the given set of raw data, I finally chose 3 of them as the main object of processing the data, they are: "enrolments", "question response", and "step activity".(You will see the preprocessing results of this data in the folder I uploaded.)
+* My "Enrolments" data processing method is just to merge seven semesters of data and delete duplicate learner_id's information
 <br>
 * In this project, what needs to be analyzed and reflected is the learning situation of students in this online course.In my opinion, the quality of students' listening in this course can be judged by calculating the accuracy rate of each student in answering the questions.
 <br>
-*Therefore, when preprocessing the data of "question response" and "step activity", I used "hash key" to bind the title number and the student number together, so as to generate all the answer data under the student information. In addition, I calculated several new variable values with the original data, such as:"Average time interval for each submission","Total number of attempts","The correct number","The total number of questions completed".
+* Therefore, when preprocessing the data of "question response" and "step activity", I used "hash key" to bind the title number and the student number together, so as to generate all the answer data under the student information. In addition, I calculated several new variable values with the original data, such as:"Average time interval for each submission","Total number of attempts","The correct number","The total number of questions completed".
 
 
-* Here are some data preprocessing example: <br>
+* Take the data preprocessing of question response as an example: <br>
 <hr>
 <br>
 
@@ -77,18 +90,81 @@ learner_id          quiz_question  Average time interval  week_number  first att
 000a49d0-39c8-4cef	1.7.6	          14	                  1	           2016/9/14 15:12	  2016/9/14 15:12	   3	            1	           2	       0.33
 
 
-
+<hr>
+<br>
 
 * Taking "question_response.csv" as an example, through integration, we can collect all the answer data under a student id into one piece, which will greatly enhance the usability of the original data
 
 ## Data visualization
 <hr>
+<br>
 
-* With data we have processed previously, we can make the following chart with shiny.
+### Enrolments
+<br>
 
+* With data we have processed previously, we can make the following chart of Student enrollment information with ggplot2.
+<hr>
+<br>
+```{r, out.height=400,out.width=600,echo=FALSE}
+plot_new("employment_status")
+```
+<hr>
+<br>
+
+#### This chart shows the distribution of job status among students of the course
+```{r, out.height=400,out.width=600,echo=FALSE}
+plot_new("age_range")
+```
+<hr>
+<br>
+
+#### This graph shows the age distribution of the class
+```{r, out.height=400,out.width=600,echo=FALSE}
+plot_new("gender")
+```
+<hr>
+<br>
+
+#### This graph shows the gender distribution of the class
+<hr>
+<br>
+
+### Introduce "shiny" analysis "question response"
+<hr>
+<br>
+
+* In this project, we introduced the use of shiny, shiny is an R package that makes it easy to build interactive web apps straight from r. I will briefly introduce the structure of my shiny app through the processing of "question response".
+<br>
+* With the help of shiny, we can make interactive visual data, just like what I demonstrated in the presentation. We can choose the term number by selecting the filter bar, and we can integrate the question response data of all the terms for unified calculation.The visualization result will be the correct rate of the students with different characteristics.
+<br>
 * By filtering the data, we can obtain the histograms we want. Through these histograms, we can see the correct rate of students with different characteristics in different semesters.
 
+<br>
+![Caption for the picture.](/CSC8631_CW\Data-Management-CSC8631\new-project\data/UN5.png){ width=40% height=100%}
 
+![Caption for the picture.](/CSC8631_CW\Data-Management-CSC8631\new-project\data/UN6.png){ width=40% height=100%}
+<hr>
+<br>
+
+* Here, we choose data from all semesters to analyze the relationship between students' correct answer rate and their own characteristics
+<br>
+![Caption for the picture.](/CSC8631_CW\Data-Management-CSC8631\new-project\data/UN7.png){ width=100% height=100%}
+<br>
+<hr>
+
+![Caption for the picture.](/CSC8631_CW\Data-Management-CSC8631\new-project\data/UN8.png){ width=100% height=100%}
+<br>
+<hr>
+
+![Caption for the picture.](/CSC8631_CW\Data-Management-CSC8631\new-project\data/UN9.png){ width=100% height=100%}
+<br>
+<hr>
+
+![Caption for the picture.](/CSC8631_CW\Data-Management-CSC8631\new-project\data/UN10.png){ width=100% height=100%}
+<br>
+<hr>
+
+* I think the quality of the students' answers reflects how much they have learned in this online course.By the result of processing these data with the "shiny", the course organizer and the new students who want to attend the class can refer to the data and make decisions.
 
 ### Data Summary
 <hr>
@@ -105,7 +181,34 @@ learner_id          quiz_question  Average time interval  week_number  first att
 <br>
 5.The average correct answer rate has no relationship with which semester cycle of the course.
 <br>
-6.The average correct answer rate is related to the working area of the occupation.
+6.The average correct answer rate is related to the working area of the occupation.<br>
+<br>
+
+
+
+## Future Work
+
+<hr>
+
+ 
+* We now have visualized data, and we need to extract key information from the fuzzy conclusions to help future recruits or course organizers make decisions
+<hr>
+
+
+###  Deficiencies of this project
+
+* A large part of the data result after processing is still discrete data, which cannot be directly used for the next modeling. We need to consider how to solve this problem.
+* Because of my limited programming ability, there are many things that can be improved, such as "shiny" embedded in rmarkdown HTML, "shiny" dynamic return value and so on.It is even possible to find out the user group of this course and analyze the user characteristics by establishing the feature combination, so as to further develop the course plan.
+
+<hr>
+<br>
+
+## After this project, the next steps will be：
+
+#### Modelling <br>
+#### Evaluation <br>
+#### Deploy    <br>
+
 
 
 
